@@ -1,31 +1,20 @@
 import { useState } from 'react';
-import {useHttp} from '../../hooks/http.hook';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 
 import store from '../../store';
 import { selectAll } from '../heroesFilters/filtersSlice';
-import { heroCreated } from '../heroesList/heroesSlice';
-
-// Задача для этого компонента:
-// Реализовать создание нового героя с введенными данными. Он должен попадать
-// в общее состояние и отображаться в списке + фильтроваться
-// Уникальный идентификатор персонажа можно сгенерировать через uiid
-// Усложненная задача:
-// Персонаж создается и в файле json при помощи метода POST
-// Дополнительно:
-// Элементы <option></option> желательно сформировать на базе
-// данных из фильтров
+import { useCreateHeroMutation } from '../../api/apiSlice';
 
 const HeroesAddForm = () => {
     const [heroName, setHeroName] = useState('');
     const [heroDescr, setHeroDescr] = useState('');
     const [heroElement, setHeroElement] = useState('');
 
+    const [createHero, {isLoading}] = useCreateHeroMutation();
+
     const {filtersLoadingStatus} = useSelector(state => state.filters);
     const filters = selectAll(store.getState());
-    const dispatch = useDispatch();
-    const {request} = useHttp();
 
     const onHandleSubmit = (e) => {
         e.preventDefault();
@@ -36,10 +25,7 @@ const HeroesAddForm = () => {
             element: heroElement
         }
 
-        request("http://localhost:3001/heroes", 'POST', JSON.stringify(newHero))
-            .then(res => console.log('Отправка успешна!', res))
-            .then(dispatch(heroCreated(newHero)))
-            .catch((err) => console.log(err));
+        createHero(newHero).unwrap();
 
         setHeroName('');
         setHeroDescr('');
@@ -55,8 +41,7 @@ const HeroesAddForm = () => {
 
         if (filters && filters.length > 0 ) {
             return filters.map(({name, label}) => {
-                // Один из фильтров нам тут не нужен
-                // eslint-disable-next-line
+
                 if (name === 'all')  return;
 
                 return <option key={name} value={name}>{label}</option>
