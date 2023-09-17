@@ -1,0 +1,60 @@
+{
+  "heroes": [
+    {
+      "id": 1,
+      "name": "Первый герой",
+      "description": "Первый герой в рейтинге!",
+      "element": "fire"
+    },
+    {
+      "id": "5c19d015-ede9-4958-870a-a68c3fe9791f",
+      "name": "Скрытный герой",
+      "description": "Скрывающийся в тени",
+      "element": "wind"
+    },
+    {
+      "id": "5e9fa1b8-00a5-49f6-8fdd-bc4c65d39a2a",
+      "name": "Каменный титан",
+      "description": "Делать что-то из земли и камня",
+      "element": "earth"
+    },
+    {
+      "id": "4036f015-94d9-4167-8cd2-ebf945f64b52",
+      "name": "Аквамен",
+      "description": "Я Джейсон Мамоа уааа",
+      "element": "water"
+    }
+  ],
+  "filters": [
+    {
+      "id": "all",
+      "name": "all",
+      "label": "Все",
+      "className": "btn-outline-dark"
+    },
+    {
+      "id": "fire",
+      "name": "fire",
+      "label": "Огонь",
+      "className": "btn-danger"
+    },
+    {
+      "id": "water",
+      "name": "water",
+      "label": "Вода",
+      "className": "btn-primary"
+    },
+    {
+      "id": "wind",
+      "name": "wind",
+      "label": "Ветер",
+      "className": "btn-success"
+    },
+    {
+      "id": "earth",
+      "name": "earth",
+      "label": "Земля",
+      "className": "btn-secondary"
+    }
+  ]
+}
